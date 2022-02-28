@@ -1,0 +1,8 @@
+gitlab:
+  hookToken: 7y7dasd7yas7dh22e9jd
+  serverUrl: https://dev-gitlab.coffeebeans.at
+  personalAccessToken: T2z3-ef5yxA3DmBRFHgs
+logging:
+  level:
+    root: INFO
+    dev.mbo: DEBUG

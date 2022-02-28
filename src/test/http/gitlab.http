@@ -1,0 +1,67 @@
+### gitlab push
+POST http://192.168.0.248:8080/gitlab/hook
+Content-Type: application/json
+X-Gitlab-Token: 7y7dasd7yas7dh22e9jd
+
+{
+    "object_kind": "push",
+    "event_name": "push",
+    "before": "298aae80a0f4f08ed7c480a6d81f6c416c840a76",
+    "after": "298aae80a0f4f08ed7c480a6d81f6c416c840a76",
+    "ref": "refs/heads/develop",
+    "checkout_sha": "298aae80a0f4f08ed7c480a6d81f6c416c840a76",
+    "message": null,
+    "user_id": 2,
+    "user_name": "Manuel Bogner",
+    "user_username": "manuel",
+    "user_email": null,
+    "user_avatar": "https://secure.gravatar.com/avatar/dc6d158123e6ed3d6e96595d7f234998?s=80&d=identicon",
+    "project_id": 2,
+    "project": {
+        "id": 2,
+        "name": "test project",
+        "description": "",
+        "web_url": "https://dev-gitlab.coffeebeans.at/manuel/test-project",
+        "avatar_url": null,
+        "git_ssh_url": "git@dev-gitlab.coffeebeans.at:manuel/test-project.git",
+        "git_http_url": "https://dev-gitlab.coffeebeans.at/manuel/test-project.git",
+        "namespace": "Manuel Bogner",
+        "visibility_level": 0,
+        "path_with_namespace": "manuel/test-project",
+        "default_branch": "develop",
+        "ci_config_path": null,
+        "homepage": "https://dev-gitlab.coffeebeans.at/manuel/test-project",
+        "url": "git@dev-gitlab.coffeebeans.at:manuel/test-project.git",
+        "ssh_url": "git@dev-gitlab.coffeebeans.at:manuel/test-project.git",
+        "http_url": "https://dev-gitlab.coffeebeans.at/manuel/test-project.git"
+    },
+    "commits": [
+        {
+            "id": "298aae80a0f4f08ed7c480a6d81f6c416c840a76",
+            "message": "Initial commit",
+            "title": "Initial commit",
+            "timestamp": "2022-02-28T21:29:44+00:00",
+            "url": "https://dev-gitlab.coffeebeans.at/manuel/test-project/-/commit/298aae80a0f4f08ed7c480a6d81f6c416c840a76",
+            "author": {
+                "name": "Manuel Bogner",
+                "email": "manuel@coffeebeans.at"
+            },
+            "added": [
+                "README.md"
+            ],
+            "modified": [],
+            "removed": []
+        }
+    ],
+    "total_commits_count": 1,
+    "push_options": {},
+    "repository": {
+        "name": "test project",
+        "url": "git@dev-gitlab.coffeebeans.at:manuel/test-project.git",
+        "description": "",
+        "homepage": "https://dev-gitlab.coffeebeans.at/manuel/test-project",
+        "git_http_url": "https://dev-gitlab.coffeebeans.at/manuel/test-project.git",
+        "git_ssh_url": "git@dev-gitlab.coffeebeans.at:manuel/test-project.git",
+        "visibility_level": 0
+    }
+}
