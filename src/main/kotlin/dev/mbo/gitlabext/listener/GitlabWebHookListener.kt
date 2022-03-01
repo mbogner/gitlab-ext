@@ -1,5 +1,6 @@
 package dev.mbo.gitlabext.listener
 
+import dev.mbo.gitlabext.listener.worker.AbstractWebWorker
 import org.gitlab4j.api.webhook.BuildEvent
 import org.gitlab4j.api.webhook.DeploymentEvent
 import org.gitlab4j.api.webhook.IssueEvent
@@ -12,55 +13,64 @@ import org.gitlab4j.api.webhook.ReleaseEvent
 import org.gitlab4j.api.webhook.TagPushEvent
 import org.gitlab4j.api.webhook.WebHookListener
 import org.gitlab4j.api.webhook.WikiPageEvent
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
-class GitlabWebHookListener : WebHookListener {
-
-    private val log = LoggerFactory.getLogger(javaClass)
+class GitlabWebHookListener(
+    private val buildEventWorker: AbstractWebWorker<BuildEvent>,
+    private val issueEventWorker: AbstractWebWorker<IssueEvent>,
+    private val jobEventWorker: AbstractWebWorker<JobEvent>,
+    private val mergeRequestEventWorker: AbstractWebWorker<MergeRequestEvent>,
+    private val noteEventWorker: AbstractWebWorker<NoteEvent>,
+    private val pipelineEventWorker: AbstractWebWorker<PipelineEvent>,
+    private val pushEventWorker: AbstractWebWorker<PushEvent>,
+    private val tagPushEventWorker: AbstractWebWorker<TagPushEvent>,
+    private val wikiPageEventWorker: AbstractWebWorker<WikiPageEvent>,
+    private val deploymentEventWorker: AbstractWebWorker<DeploymentEvent>,
+    private val releaseEventWorker: AbstractWebWorker<ReleaseEvent>,
+) : WebHookListener {
 
     override fun onBuildEvent(event: BuildEvent) {
-        log.debug("received: {}", event)
+        buildEventWorker.process(event)
     }
 
     override fun onIssueEvent(event: IssueEvent) {
-        log.debug("received: {}", event)
+        issueEventWorker.process(event)
     }
 
     override fun onJobEvent(event: JobEvent) {
-        log.debug("received: {}", event)
+        jobEventWorker.process(event)
     }
 
     override fun onMergeRequestEvent(event: MergeRequestEvent) {
-        log.debug("received: {}", event)
+        mergeRequestEventWorker.process(event)
     }
 
     override fun onNoteEvent(event: NoteEvent) {
-        log.debug("received: {}", event)
+        noteEventWorker.process(event)
     }
 
     override fun onPipelineEvent(event: PipelineEvent) {
-        log.debug("received: {}", event)
+        pipelineEventWorker.process(event)
     }
 
     override fun onPushEvent(event: PushEvent) {
-        log.debug("received: {}", event)
+        pushEventWorker.process(event)
     }
 
     override fun onTagPushEvent(event: TagPushEvent) {
-        log.debug("received: {}", event)
+        tagPushEventWorker.process(event)
     }
 
     override fun onWikiPageEvent(event: WikiPageEvent) {
-        log.debug("received: {}", event)
+        wikiPageEventWorker.process(event)
     }
 
     override fun onDeploymentEvent(event: DeploymentEvent) {
-        log.debug("received: {}", event)
+        deploymentEventWorker.process(event)
     }
 
     override fun onReleaseEvent(event: ReleaseEvent) {
-        log.debug("received: {}", event)
+        releaseEventWorker.process(event)
     }
 }

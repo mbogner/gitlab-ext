@@ -1,5 +1,6 @@
 package dev.mbo.gitlabext.listener
 
+import dev.mbo.gitlabext.listener.worker.AbstractSystemWorker
 import org.gitlab4j.api.systemhooks.GroupMemberSystemHookEvent
 import org.gitlab4j.api.systemhooks.GroupSystemHookEvent
 import org.gitlab4j.api.systemhooks.KeySystemHookEvent
@@ -11,51 +12,59 @@ import org.gitlab4j.api.systemhooks.SystemHookListener
 import org.gitlab4j.api.systemhooks.TagPushSystemHookEvent
 import org.gitlab4j.api.systemhooks.TeamMemberSystemHookEvent
 import org.gitlab4j.api.systemhooks.UserSystemHookEvent
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
-class GitlabSystemHookListener : SystemHookListener {
-
-    private val log = LoggerFactory.getLogger(javaClass)
+class GitlabSystemHookListener(
+    private val projectSystemHookEventWorker: AbstractSystemWorker<ProjectSystemHookEvent>,
+    private val teamMemberSystemHookEventWorker: AbstractSystemWorker<TeamMemberSystemHookEvent>,
+    private val userSystemHookEventWorker: AbstractSystemWorker<UserSystemHookEvent>,
+    private val keySystemHookEventWorker: AbstractSystemWorker<KeySystemHookEvent>,
+    private val groupSystemHookEventWorker: AbstractSystemWorker<GroupSystemHookEvent>,
+    private val groupMemberSystemHookEventWorker: AbstractSystemWorker<GroupMemberSystemHookEvent>,
+    private val pushSystemHookEventWorker: AbstractSystemWorker<PushSystemHookEvent>,
+    private val tagPushSystemHookEventWorker: AbstractSystemWorker<TagPushSystemHookEvent>,
+    private val repositorySystemHookEventWorker: AbstractSystemWorker<RepositorySystemHookEvent>,
+    private val mergeRequestSystemHookEventWorker: AbstractSystemWorker<MergeRequestSystemHookEvent>,
+) : SystemHookListener {
 
     override fun onProjectEvent(event: ProjectSystemHookEvent) {
-        log.debug("received: {}", event)
+        projectSystemHookEventWorker.process(event)
     }
 
     override fun onTeamMemberEvent(event: TeamMemberSystemHookEvent) {
-        log.debug("received: {}", event)
+        teamMemberSystemHookEventWorker.process(event)
     }
 
     override fun onUserEvent(event: UserSystemHookEvent) {
-        log.debug("received: {}", event)
+        userSystemHookEventWorker.process(event)
     }
 
     override fun onKeyEvent(event: KeySystemHookEvent) {
-        log.debug("received: {}", event)
+        keySystemHookEventWorker.process(event)
     }
 
     override fun onGroupEvent(event: GroupSystemHookEvent) {
-        log.debug("received: {}", event)
+        groupSystemHookEventWorker.process(event)
     }
 
     override fun onGroupMemberEvent(event: GroupMemberSystemHookEvent) {
-        log.debug("received: {}", event)
+        groupMemberSystemHookEventWorker.process(event)
     }
 
     override fun onPushEvent(event: PushSystemHookEvent) {
-        log.debug("received: {}", event)
+        pushSystemHookEventWorker.process(event)
     }
 
     override fun onTagPushEvent(event: TagPushSystemHookEvent) {
-        log.debug("received: {}", event)
+        tagPushSystemHookEventWorker.process(event)
     }
 
     override fun onRepositoryEvent(event: RepositorySystemHookEvent) {
-        log.debug("received: {}", event)
+        repositorySystemHookEventWorker.process(event)
     }
 
     override fun onMergeRequestEvent(event: MergeRequestSystemHookEvent) {
-        log.debug("received: {}", event)
+        mergeRequestSystemHookEventWorker.process(event)
     }
 }

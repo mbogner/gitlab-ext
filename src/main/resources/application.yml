@@ -2,6 +2,10 @@ gitlab:
   hookToken: 7y7dasd7yas7dh22e9jd
   serverUrl: https://dev-gitlab.coffeebeans.at
   personalAccessToken: T2z3-ef5yxA3DmBRFHgs
+google:
+  secretsFile: client.secrets.json
+  apiKey: AIzaSyCFll7Ava4T-7VHvYUnuN-hDO3dzcr8QVo
+  credentialStore: gstore
 logging:
   level:
     root: INFO

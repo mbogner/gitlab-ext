@@ -1,7 +1,8 @@
 ### gitlab push
-POST http://192.168.0.248:8080/gitlab/hook
+POST {{webhook}}
 Content-Type: application/json
-X-Gitlab-Token: 7y7dasd7yas7dh22e9jd
+X-Gitlab-Token: {{gitlabTokenHeader}}
+X-Gitlab-Event: {{pushEventHeader}}
 
 {
     "object_kind": "push",
@@ -63,5 +64,97 @@ X-Gitlab-Token: 7y7dasd7yas7dh22e9jd
         "git_http_url": "https://dev-gitlab.coffeebeans.at/manuel/test-project.git",
         "git_ssh_url": "git@dev-gitlab.coffeebeans.at:manuel/test-project.git",
         "visibility_level": 0
+    }
+}
+
+### gitlab issue update
+POST {{webhook}}
+Content-Type: application/json
+X-Gitlab-Token: {{gitlabTokenHeader}}
+X-Gitlab-Event: {{issueEventHeader}}
+
+{
+    "object_kind": "issue",
+    "event_type": "issue",
+    "user": {
+        "id": 2,
+        "name": "Manuel Bogner",
+        "username": "manuel",
+        "avatar_url": "https://secure.gravatar.com/avatar/dc6d158123e6ed3d6e96595d7f234998?s=80&d=identicon",
+        "email": "[REDACTED]"
+    },
+    "project": {
+        "id": 2,
+        "name": "test project",
+        "description": "",
+        "web_url": "https://dev-gitlab.coffeebeans.at/manuel/test-project",
+        "avatar_url": null,
+        "git_ssh_url": "git@dev-gitlab.coffeebeans.at:manuel/test-project.git",
+        "git_http_url": "https://dev-gitlab.coffeebeans.at/manuel/test-project.git",
+        "namespace": "Manuel Bogner",
+        "visibility_level": 0,
+        "path_with_namespace": "manuel/test-project",
+        "default_branch": "develop",
+        "ci_config_path": null,
+        "homepage": "https://dev-gitlab.coffeebeans.at/manuel/test-project",
+        "url": "git@dev-gitlab.coffeebeans.at:manuel/test-project.git",
+        "ssh_url": "git@dev-gitlab.coffeebeans.at:manuel/test-project.git",
+        "http_url": "https://dev-gitlab.coffeebeans.at/manuel/test-project.git"
+    },
+    "object_attributes": {
+        "author_id": 2,
+        "closed_at": null,
+        "confidential": false,
+        "created_at": "2022-02-28 22:37:01 UTC",
+        "description": "2test 123452\n\n--------------------------\n#### External Description\n\nGoogle Docs: DOCS_URL",
+        "discussion_locked": null,
+        "due_date": null,
+        "id": 1,
+        "iid": 1,
+        "last_edited_at": "2022-03-01 02:49:22 UTC",
+        "last_edited_by_id": 2,
+        "milestone_id": null,
+        "moved_to_id": null,
+        "duplicated_to_id": null,
+        "project_id": 2,
+        "relative_position": 513,
+        "state_id": 1,
+        "time_estimate": 0,
+        "title": "test",
+        "updated_at": "2022-03-01 02:49:22 UTC",
+        "updated_by_id": 2,
+        "url": "https://dev-gitlab.coffeebeans.at/manuel/test-project/-/issues/1",
+        "total_time_spent": 0,
+        "time_change": 0,
+        "human_total_time_spent": null,
+        "human_time_change": null,
+        "human_time_estimate": null,
+        "assignee_ids": [],
+        "assignee_id": null,
+        "labels": [],
+        "state": "opened",
+        "severity": "unknown",
+        "action": "update"
+    },
+    "labels": [],
+    "changes": {
+        "description": {
+            "previous": "test 123452\n\n--------------------------\n#### External Description\n\nGoogle Docs: DOCS_URL",
+            "current": "2test 123452\n\n--------------------------\n#### External Description\n\nGoogle Docs: DOCS_URL"
+        },
+        "last_edited_at": {
+            "previous": "2022-03-01 02:47:20 UTC",
+            "current": "2022-03-01 02:49:22 UTC"
+        },
+        "updated_at": {
+            "previous": "2022-03-01 02:47:20 UTC",
+            "current": "2022-03-01 02:49:22 UTC"
+        }
+    },
+    "repository": {
+        "name": "test project",
+        "url": "git@dev-gitlab.coffeebeans.at:manuel/test-project.git",
+        "description": "",
+        "homepage": "https://dev-gitlab.coffeebeans.at/manuel/test-project"
     }
 }
