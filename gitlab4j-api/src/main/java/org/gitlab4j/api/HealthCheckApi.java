@@ -37,6 +37,7 @@ public class HealthCheckApi extends AbstractApi {
      * @throws GitLabApiException if any exception occurs
      * @deprecated
      */
+    @Deprecated
     public HealthCheckInfo getLiveness(String token) throws GitLabApiException {
         try {
             URL livenessUrl = getApiClient().getUrlWithBase("-", "liveness");
@@ -73,6 +74,7 @@ public class HealthCheckApi extends AbstractApi {
      * @throws GitLabApiException if any exception occurs
      * @deprecated
      */
+    @Deprecated
     public HealthCheckInfo getReadiness(String token) throws GitLabApiException {
         try {
             URL readinessUrl = getApiClient().getUrlWithBase("-", "readiness");

@@ -6,8 +6,34 @@ google:
   secretsFile: client.secrets.json
   apiKey: AIzaSyCFll7Ava4T-7VHvYUnuN-hDO3dzcr8QVo
   credentialStore: gstore
+  docs:
+    baseDir: gitlab_documents
 logging:
   level:
     root: INFO
     dev.mbo: DEBUG
     org.gitlab4j.api: TRACE
+spring:
+  jackson:
+    deserialization:
+      READ_ENUMS_USING_TO_STRING: true
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+      FAIL_ON_INVALID_SUBTYPE: false
+      FAIL_ON_NULL_FOR_PRIMITIVES: true
+    serialization:
+      INDENT_OUTPUT: false
+      ORDER_MAP_ENTRIES_BY_KEYS: true
+      WRITE_DATES_AS_TIMESTAMPS: false
+      WRITE_EMPTY_JSON_ARRAYS: true
+      WRITE_ENUMS_USING_TO_STRING: true
+      WRITE_NULL_MAP_VALUES: true
+      WRITE_SINGLE_ELEM_ARRAYS_UNWRAPPED: false
+      FAIL_ON_SELF_REFERENCES: true
+    default-property-inclusion: non_null
+    time-zone: UTC
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    ssl: ${REDIS_SSL:false}
+    database: ${REDIS_DB:0}
+    password: ${REDIS_PASSWORD:redis}

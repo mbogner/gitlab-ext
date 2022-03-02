@@ -1,5 +1,5 @@
 ### gitlab push
-POST {{webhook}}
+POST {{baseUrl}}/{{webhook}}
 Content-Type: application/json
 X-Gitlab-Token: {{gitlabTokenHeader}}
 X-Gitlab-Event: {{pushEventHeader}}
@@ -68,7 +68,7 @@ X-Gitlab-Event: {{pushEventHeader}}
 }
 
 ### gitlab issue update
-POST {{webhook}}
+POST {{baseUrl}}/{{webhook}}
 Content-Type: application/json
 X-Gitlab-Token: {{gitlabTokenHeader}}
 X-Gitlab-Event: {{issueEventHeader}}

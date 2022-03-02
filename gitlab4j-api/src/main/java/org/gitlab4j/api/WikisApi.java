@@ -98,6 +98,7 @@ public class WikisApi extends AbstractApi {
      * @throws GitLabApiException if any exception occurs
      * @deprecated Will be removed in a future release, use {@link #getPages(Object, boolean, int)}
      */
+    @Deprecated
     public List<WikiPage> getPages(Object projectIdOrPath, int page, int perPage) throws GitLabApiException {
         Response response = get(Response.Status.OK, getPageQueryParams(page, perPage),
                 "projects", getProjectIdOrPath(projectIdOrPath), "wikis");

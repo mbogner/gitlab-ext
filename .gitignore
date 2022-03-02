@@ -6,6 +6,8 @@ build/
 !**/src/test/**/build/
 client.secrets.json
 gstore
+tmp/
+.env
 
 ### STS ###
 .apt_generated

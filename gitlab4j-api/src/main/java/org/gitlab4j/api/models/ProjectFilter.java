@@ -233,6 +233,7 @@ public class ProjectFilter {
      * @return the reference to this ProjectFilter instance
      * @deprecated Replaced by {@link #withMinAccessLevel(AccessLevel) getComponentAt}
      */
+    @Deprecated
     public ProjectFilter minAccessLevel(AccessLevel minAccessLevel) {
         this.minAccessLevel = minAccessLevel;
         return (this);

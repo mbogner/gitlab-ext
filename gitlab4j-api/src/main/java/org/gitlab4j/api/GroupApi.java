@@ -644,6 +644,7 @@ public class GroupApi extends AbstractApi {
      * @deprecated  Will be removed in version 5.0, replaced by {@link #addGroup(String, String, String, Visibility,
      *      Boolean, Boolean, Integer)}
      */
+    @Deprecated
     public Group addGroup(String name, String path, String description, Boolean membershipLock,
             Boolean shareWithGroupLock, Visibility visibility, Boolean lfsEnabled, Boolean requestAccessEnabled,
             Integer parentId, Integer sharedRunnersMinutesLimit) throws GitLabApiException {
@@ -684,6 +685,7 @@ public class GroupApi extends AbstractApi {
      * @deprecated  Will be removed in version 5.0, replaced by {@link #updateGroup(Object, String, String, String,
      *      Visibility, Boolean, Boolean, Integer)}
      */
+    @Deprecated
     public Group updateGroup(Object groupIdOrPath, String name, String path, String description, Boolean membershipLock,
             Boolean shareWithGroupLock, Visibility visibility, Boolean lfsEnabled, Boolean requestAccessEnabled,
             Integer parentId, Integer sharedRunnersMinutesLimit) throws GitLabApiException {

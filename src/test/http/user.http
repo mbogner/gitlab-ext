@@ -1,0 +1,32 @@
+### create user
+POST {{baseUrl}}/{{users}}
+Content-Type: application/json
+
+{
+  "id": "e2e6d5a3-843a-44a9-8881-114f117059e9",
+  "gitlab_id": 2,
+  "name": "Manuel Bogner",
+  "username": "manuel",
+  "avatar_url": null,
+  "email": null
+}
+
+### create random user
+POST {{baseUrl}}/{{users}}
+Content-Type: application/json
+
+{
+  "gitlab_id": 2,
+  "name": "Manuel Bogner",
+  "username": "manuel",
+  "avatar_url": null,
+  "email": null
+}
+
+### read user
+GET {{baseUrl}}/{{users}}/e2e6d5a3-843a-44a9-8881-114f117059e9
+Accept: application/json
+
+### delete user
+DELETE {{baseUrl}}/{{users}}/e2e6d5a3-843a-44a9-8881-114f117059e9
+Accept: application/json

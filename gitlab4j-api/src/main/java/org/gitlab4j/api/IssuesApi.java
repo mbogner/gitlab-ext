@@ -1,14 +1,5 @@
 package org.gitlab4j.api;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
-
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-
 import org.gitlab4j.api.GitLabApi.ApiVersion;
 import org.gitlab4j.api.models.Duration;
 import org.gitlab4j.api.models.Issue;
@@ -16,15 +7,22 @@ import org.gitlab4j.api.models.IssueFilter;
 import org.gitlab4j.api.models.IssueLink;
 import org.gitlab4j.api.models.IssuesStatistics;
 import org.gitlab4j.api.models.IssuesStatisticsFilter;
-import org.gitlab4j.api.models.Label;
 import org.gitlab4j.api.models.MergeRequest;
 import org.gitlab4j.api.models.Participant;
 import org.gitlab4j.api.models.TimeStats;
 import org.gitlab4j.api.utils.DurationUtils;
-import org.gitlab4j.api.webhook.EventLabel;
+
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.Response;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * This class provides an entry point to all the GitLab API Issue calls.
+ *
  * @see <a href="https://docs.gitlab.com/ce/api/issues.html">Issues API at GitLab</a>
  * @see <a href="https://docs.gitlab.com/ce/api/issue_links.html">Issue Links API at GitLab</a>
  * @see <a href="https://docs.gitlab.com/ce/api/issues_statistics.html">Issues Statistics API at GitLab</a>
@@ -52,21 +50,23 @@ public class IssuesApi extends AbstractApi implements Constants {
      *
      * <pre><code>GitLab Endpoint: GET /issues</code></pre>
      *
-     * @param page the page to get
+     * @param page    the page to get
      * @param perPage the number of issues per page
      * @return the list of issues in the specified range
      * @throws GitLabApiException if any exception occurs
      */
     public List<Issue> getIssues(int page, int perPage) throws GitLabApiException {
         Response response = get(Response.Status.OK, getPageQueryParams(page, perPage), "issues");
-        return (response.readEntity(new GenericType<List<Issue>>() {}));
+        return (response.readEntity(new GenericType<List<Issue>>() {
+        }));
     }
 
     /**
      * Get a Pager of all issues the authenticated user has access to. Only returns issues created by the current user.
      *
      * <pre><code>GitLab Endpoint: GET /issues</code></pre>
-     *r
+     * r
+     *
      * @param itemsPerPage the number of issues per page
      * @return the Pager of issues in the specified range
      * @throws GitLabApiException if any exception occurs
@@ -106,14 +106,15 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param page the page to get
-     * @param perPage the number of issues per page
+     * @param page            the page to get
+     * @param perPage         the number of issues per page
      * @return the list of issues in the specified range
      * @throws GitLabApiException if any exception occurs
      */
     public List<Issue> getIssues(Object projectIdOrPath, int page, int perPage) throws GitLabApiException {
         Response response = get(Response.Status.OK, getPageQueryParams(page, perPage), "projects", getProjectIdOrPath(projectIdOrPath), "issues");
-        return (response.readEntity(new GenericType<List<Issue>>() {}));
+        return (response.readEntity(new GenericType<List<Issue>>() {
+        }));
     }
 
     /**
@@ -122,7 +123,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param itemsPerPage the number of issues per page
+     * @param itemsPerPage    the number of issues per page
      * @return the Pager of issues in the specified range
      * @throws GitLabApiException if any exception occurs
      */
@@ -149,7 +150,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param filter {@link IssueFilter} a IssueFilter instance with the filter settings
+     * @param filter          {@link IssueFilter} a IssueFilter instance with the filter settings
      * @return the list of issues in the specified range.
      * @throws GitLabApiException if any exception occurs
      */
@@ -163,16 +164,17 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param filter {@link IssueFilter} a IssueFilter instance with the filter settings.
-     * @param page the page to get.
-     * @param perPage the number of projects per page.
+     * @param filter          {@link IssueFilter} a IssueFilter instance with the filter settings.
+     * @param page            the page to get.
+     * @param perPage         the number of projects per page.
      * @return the list of issues in the specified range.
      * @throws GitLabApiException if any exception occurs
      */
     public List<Issue> getIssues(Object projectIdOrPath, IssueFilter filter, int page, int perPage) throws GitLabApiException {
         GitLabApiForm formData = filter.getQueryParams(page, perPage);
         Response response = get(Response.Status.OK, formData.asMap(), "projects", getProjectIdOrPath(projectIdOrPath), "issues");
-        return (response.readEntity(new GenericType<List<Issue>>() {}));
+        return (response.readEntity(new GenericType<List<Issue>>() {
+        }));
     }
 
     /**
@@ -181,8 +183,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param filter {@link IssueFilter} a IssueFilter instance with the filter settings.
-     * @param itemsPerPage the number of Project instances that will be fetched per page.
+     * @param filter          {@link IssueFilter} a IssueFilter instance with the filter settings.
+     * @param itemsPerPage    the number of Project instances that will be fetched per page.
      * @return the Pager of issues in the specified range.
      * @throws GitLabApiException if any exception occurs
      */
@@ -197,7 +199,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param filter {@link IssueFilter} a IssueFilter instance with the filter settings
+     * @param filter          {@link IssueFilter} a IssueFilter instance with the filter settings
      * @return a Stream of issues in the specified range.
      * @throws GitLabApiException if any exception occurs
      */
@@ -225,8 +227,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      *
      * <pre><code>GitLab Endpoint: GET /issues</code></pre>
      *
-     * @param filter {@link IssueFilter} a IssueFilter instance with the filter settings.
-     * @param page the page to get.
+     * @param filter  {@link IssueFilter} a IssueFilter instance with the filter settings.
+     * @param page    the page to get.
      * @param perPage the number of projects per page.
      * @return the list of issues in the specified range.
      * @throws GitLabApiException if any exception occurs
@@ -234,7 +236,8 @@ public class IssuesApi extends AbstractApi implements Constants {
     public List<Issue> getIssues(IssueFilter filter, int page, int perPage) throws GitLabApiException {
         GitLabApiForm formData = filter.getQueryParams(page, perPage);
         Response response = get(Response.Status.OK, formData.asMap(), "issues");
-        return (response.readEntity(new GenericType<List<Issue>>() {}));
+        return (response.readEntity(new GenericType<List<Issue>>() {
+        }));
     }
 
     /**
@@ -243,14 +246,14 @@ public class IssuesApi extends AbstractApi implements Constants {
      *
      * <pre><code>GitLab Endpoint: GET /issues</code></pre>
      *
-     * @param filter {@link IssueFilter} a IssueFilter instance with the filter settings.
+     * @param filter       {@link IssueFilter} a IssueFilter instance with the filter settings.
      * @param itemsPerPage the number of Project instances that will be fetched per page.
      * @return the Pager of issues in the specified range.
      * @throws GitLabApiException if any exception occurs
      */
     public Pager<Issue> getIssues(IssueFilter filter, int itemsPerPage) throws GitLabApiException {
         GitLabApiForm formData = filter.getQueryParams();
-        return (new Pager<Issue>(this, Issue.class, itemsPerPage, formData.asMap(),  "issues"));
+        return (new Pager<Issue>(this, Issue.class, itemsPerPage, formData.asMap(), "issues"));
     }
 
     /**
@@ -277,7 +280,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * @throws GitLabApiException if any exception occurs
      */
     public List<Issue> getGroupIssues(Object groupIdOrPath) throws GitLabApiException {
-	return (getGroupIssues(groupIdOrPath, null, getDefaultPerPage()).all());
+        return (getGroupIssues(groupIdOrPath, null, getDefaultPerPage()).all());
     }
 
     /**
@@ -286,7 +289,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /groups/:id/issues</code></pre>
      *
      * @param groupIdOrPath the group in the form of an Integer(ID), String(path), or Group instance
-     * @param itemsPerPage the number of Issue instances that will be fetched per page.
+     * @param itemsPerPage  the number of Issue instances that will be fetched per page.
      * @return the Pager of issues for the specified group
      * @throws GitLabApiException if any exception occurs
      */
@@ -304,7 +307,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * @throws GitLabApiException if any exception occurs
      */
     public Stream<Issue> getGroupIssuesStream(Object groupIdOrPath) throws GitLabApiException {
-	return (getGroupIssues(groupIdOrPath, null, getDefaultPerPage()).stream());
+        return (getGroupIssues(groupIdOrPath, null, getDefaultPerPage()).stream());
     }
 
     /**
@@ -313,12 +316,12 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /groups/:id/issues</code></pre>
      *
      * @param groupIdOrPath the group in the form of an Integer(ID), String(path), or Group instance
-     * @param filter {@link IssueFilter} a IssueFilter instance with the filter settings.
+     * @param filter        {@link IssueFilter} a IssueFilter instance with the filter settings.
      * @return a List of issues for the specified group and filter
      * @throws GitLabApiException if any exception occurs
      */
     public List<Issue> getGroupIssues(Object groupIdOrPath, IssueFilter filter) throws GitLabApiException {
-	return (getGroupIssues(groupIdOrPath, filter, getDefaultPerPage()).all());
+        return (getGroupIssues(groupIdOrPath, filter, getDefaultPerPage()).all());
     }
 
     /**
@@ -327,8 +330,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /groups/:id/issues</code></pre>
      *
      * @param groupIdOrPath the group in the form of an Integer(ID), String(path), or Group instance
-     * @param filter {@link IssueFilter} a IssueFilter instance with the filter settings.
-     * @param itemsPerPage the number of Issue instances that will be fetched per page.
+     * @param filter        {@link IssueFilter} a IssueFilter instance with the filter settings.
+     * @param itemsPerPage  the number of Issue instances that will be fetched per page.
      * @return the Pager of issues for the specified group and filter
      * @throws GitLabApiException if any exception occurs
      */
@@ -344,12 +347,12 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /groups/:id/issues</code></pre>
      *
      * @param groupIdOrPath the group in the form of an Integer(ID), String(path), or Group instance
-     * @param filter {@link IssueFilter} a IssueFilter instance with the filter settings.
+     * @param filter        {@link IssueFilter} a IssueFilter instance with the filter settings.
      * @return a Stream of issues for the specified group and filter
      * @throws GitLabApiException if any exception occurs
      */
     public Stream<Issue> getGroupIssuesStream(Object groupIdOrPath, IssueFilter filter) throws GitLabApiException {
-	return (getGroupIssues(groupIdOrPath, filter, getDefaultPerPage()).stream());
+        return (getGroupIssues(groupIdOrPath, filter, getDefaultPerPage()).stream());
     }
 
     /**
@@ -358,7 +361,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
+     * @param issueIid        the internal ID of a project's issue
      * @return the specified Issue instance
      * @throws GitLabApiException if any exception occurs
      */
@@ -374,7 +377,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
+     * @param issueIid        the internal ID of a project's issue
      * @return the specified Issue as an Optional instance
      */
     public Optional<Issue> getOptionalIssue(Object projectIdOrPath, Integer issueIid) {
@@ -391,8 +394,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param title the title of an issue, required
-     * @param description the description of an issue, optional
+     * @param title           the title of an issue, required
+     * @param description     the description of an issue, optional
      * @return an instance of Issue
      * @throws GitLabApiException if any exception occurs
      */
@@ -405,24 +408,24 @@ public class IssuesApi extends AbstractApi implements Constants {
      *
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues</code></pre>
      *
-     * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param title the issue title of an issue, required
-     * @param description the description of an issue, optional
-     * @param confidential set the issue to be confidential, default is false, optional
-     * @param assigneeIds the IDs of the users to assign issue, optional
-     * @param milestoneId the ID of a milestone to assign issue, optional
-     * @param labels comma-separated label names for an issue, optional
-     * @param createdAt the date the issue was created at, optional
-     * @param dueDate the due date, optional
+     * @param projectIdOrPath         the project in the form of an Integer(ID), String(path), or Project instance
+     * @param title                   the issue title of an issue, required
+     * @param description             the description of an issue, optional
+     * @param confidential            set the issue to be confidential, default is false, optional
+     * @param assigneeIds             the IDs of the users to assign issue, optional
+     * @param milestoneId             the ID of a milestone to assign issue, optional
+     * @param labels                  comma-separated label names for an issue, optional
+     * @param createdAt               the date the issue was created at, optional
+     * @param dueDate                 the due date, optional
      * @param mergeRequestToResolveId the IID of a merge request in which to resolve all issues. This will fill the issue with a default
-     *        description and mark all discussions as resolved. When passing a description or title, these values will take precedence over the default values. Optional
-     * @param discussionToResolveId the ID of a discussion to resolve. This will fill in the issue with a default description and mark the discussion as resolved.
-     *        Use in combination with merge_request_to_resolve_discussions_of. Optional
+     *                                description and mark all discussions as resolved. When passing a description or title, these values will take precedence over the default values. Optional
+     * @param discussionToResolveId   the ID of a discussion to resolve. This will fill in the issue with a default description and mark the discussion as resolved.
+     *                                Use in combination with merge_request_to_resolve_discussions_of. Optional
      * @return an instance of Issue
      * @throws GitLabApiException if any exception occurs
      */
     public Issue createIssue(Object projectIdOrPath, String title, String description, Boolean confidential, List<Integer> assigneeIds, Integer milestoneId, String labels,
-            Date createdAt, Date dueDate, Integer mergeRequestToResolveId, Integer discussionToResolveId) throws GitLabApiException {
+                             Date createdAt, Date dueDate, Integer mergeRequestToResolveId, Integer discussionToResolveId) throws GitLabApiException {
 
         GitLabApiForm formData = new GitLabApiForm()
                 .withParam("title", title, true)
@@ -445,7 +448,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: PUT /projects/:id/issues/:issue_iid</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance, required
-     * @param issueIid the issue IID to update, required
+     * @param issueIid        the issue IID to update, required
      * @return an instance of the updated Issue
      * @throws GitLabApiException if any exception occurs
      */
@@ -466,21 +469,21 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: PUT /projects/:id/issues/:issue_iid</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance, required
-     * @param issueIid the issue IID to update, required
-     * @param title the title of an issue, optional
-     * @param description the description of an issue, optional
-     * @param confidential set the issue to be confidential, default is false, optional
-     * @param assigneeIds the IDs of the users to assign issue, optional
-     * @param milestoneId the ID of a milestone to assign issue, optional
-     * @param labels comma-separated label names for an issue, optional
-     * @param stateEvent the state event of an issue. Set close to close the issue and reopen to reopen it, optional
-     * @param updatedAt sets the updated date, requires admin or project owner rights, optional
-     * @param dueDate the due date, optional
+     * @param issueIid        the issue IID to update, required
+     * @param title           the title of an issue, optional
+     * @param description     the description of an issue, optional
+     * @param confidential    set the issue to be confidential, default is false, optional
+     * @param assigneeIds     the IDs of the users to assign issue, optional
+     * @param milestoneId     the ID of a milestone to assign issue, optional
+     * @param labels          comma-separated label names for an issue, optional
+     * @param stateEvent      the state event of an issue. Set close to close the issue and reopen to reopen it, optional
+     * @param updatedAt       sets the updated date, requires admin or project owner rights, optional
+     * @param dueDate         the due date, optional
      * @return an instance of the updated Issue
      * @throws GitLabApiException if any exception occurs
      */
     public Issue updateIssue(Object projectIdOrPath, Integer issueIid, String title, String description, Boolean confidential, List<Integer> assigneeIds,
-                             Integer milestoneId, List<EventLabel> labels, StateEvent stateEvent, Date updatedAt, Date dueDate) throws GitLabApiException {
+                             Integer milestoneId, Date updatedAt, Date dueDate) throws GitLabApiException {
 
         if (issueIid == null) {
             throw new RuntimeException("issue IID cannot be null");
@@ -492,8 +495,6 @@ public class IssuesApi extends AbstractApi implements Constants {
                 .withParam("confidential", confidential)
                 .withParam("assignee_ids", assigneeIds)
                 .withParam("milestone_id", milestoneId)
-                .withParam("labels", labels)
-                .withParam("state_event", stateEvent)
                 .withParam("updated_at", updatedAt)
                 .withParam("due_date", dueDate);
         Response response = put(Response.Status.OK, formData.asMap(), "projects", getProjectIdOrPath(projectIdOrPath), "issues", issueIid);
@@ -506,8 +507,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: PUT /projects/:id/issues/:issue_iid</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance, required
-     * @param issueIid the issue IID to update, required
-     * @param assigneeId the ID of the user to assign issue to, required
+     * @param issueIid        the issue IID to update, required
+     * @param assigneeId      the ID of the user to assign issue to, required
      * @return an instance of the updated Issue
      * @throws GitLabApiException if any exception occurs
      */
@@ -528,7 +529,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: DELETE /projects/:id/issues/:issue_iid</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance, required
-     * @param issueIid the internal ID of a project's issue
+     * @param issueIid        the internal ID of a project's issue
      * @throws GitLabApiException if any exception occurs
      */
     public void deleteIssue(Object projectIdOrPath, Integer issueIid) throws GitLabApiException {
@@ -547,8 +548,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues/:issue_iid/time_estimate</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance, required
-     * @param issueIid the internal ID of a project's issue
-     * @param duration estimated time in seconds
+     * @param issueIid        the internal ID of a project's issue
+     * @param duration        estimated time in seconds
      * @return a TimeSTats instance
      * @throws GitLabApiException if any exception occurs
      */
@@ -562,8 +563,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues/:issue_iid/time_estimate</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance, required
-     * @param issueIid the internal ID of a project's issue
-     * @param duration Human readable format, e.g. 3h30m
+     * @param issueIid        the internal ID of a project's issue
+     * @param duration        Human readable format, e.g. 3h30m
      * @return a TimeSTats instance
      * @throws GitLabApiException if any exception occurs
      */
@@ -577,8 +578,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues/:issue_iid/time_estimate</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
-     * @param duration set the estimate of time to this duration
+     * @param issueIid        the internal ID of a project's issue
+     * @param duration        set the estimate of time to this duration
      * @return a TimeSTats instance
      * @throws GitLabApiException if any exception occurs
      */
@@ -602,7 +603,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues/:issue_iid/reset_time_estimate</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
+     * @param issueIid        the internal ID of a project's issue
      * @return a TimeSTats instance
      * @throws GitLabApiException if any exception occurs
      */
@@ -623,8 +624,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues/:issue_iid/add_spent_time</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
-     * @param duration the duration in seconds
+     * @param issueIid        the internal ID of a project's issue
+     * @param duration        the duration in seconds
      * @return a TimeSTats instance
      * @throws GitLabApiException if any exception occurs
      */
@@ -638,8 +639,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues/:issue_iid/add_spent_time</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
-     * @param duration Human readable format, e.g. 3h30m
+     * @param issueIid        the internal ID of a project's issue
+     * @param duration        Human readable format, e.g. 3h30m
      * @return a TimeSTats instance
      * @throws GitLabApiException if any exception occurs
      */
@@ -653,8 +654,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues/:issue_iid/add_spent_time</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
-     * @param duration the duration of time spent
+     * @param issueIid        the internal ID of a project's issue
+     * @param duration        the duration of time spent
      * @return a TimeSTats instance
      * @throws GitLabApiException if any exception occurs
      */
@@ -678,7 +679,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues/:issue_iid/reset_spent_time</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
+     * @param issueIid        the internal ID of a project's issue
      * @return a TimeSTats instance
      * @throws GitLabApiException if any exception occurs
      */
@@ -699,7 +700,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/time_stats</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
+     * @param issueIid        the internal ID of a project's issue
      * @return a TimeStats instance
      * @throws GitLabApiException if any exception occurs
      */
@@ -720,7 +721,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/time_stats</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
+     * @param issueIid        the internal ID of a project's issue
      * @return a TimeStats as an Optional instance
      */
     public Optional<TimeStats> getOptionalTimeTrackingStats(Object projectIdOrPath, Integer issueIid) {
@@ -737,7 +738,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/closed_by</code></pre>
      *
      * @param projectIdOrPath id, path of the project, or a Project instance holding the project ID or path
-     * @param issueIid the internal ID of a project's issue
+     * @param issueIid        the internal ID of a project's issue
      * @return a List containing all the merge requests what will close the issue when merged.
      * @throws GitLabApiException if any exception occurs
      */
@@ -751,16 +752,17 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/closed_by</code></pre>
      *
      * @param projectIdOrPath id, path of the project, or a Project instance holding the project ID or path
-     * @param issueIid the internal ID of a project's issue
-     * @param page the page to get
-     * @param perPage the number of issues per page
+     * @param issueIid        the internal ID of a project's issue
+     * @param page            the page to get
+     * @param perPage         the number of issues per page
      * @return a List containing all the merge requests what will close the issue when merged.
      * @throws GitLabApiException if any exception occurs
      */
     public List<MergeRequest> getClosedByMergeRequests(Object projectIdOrPath, Integer issueIid, int page, int perPage) throws GitLabApiException {
         Response response = get(Response.Status.OK, getPageQueryParams(page, perPage),
                 "projects", getProjectIdOrPath(projectIdOrPath), "issues", issueIid, "closed_by");
-        return (response.readEntity(new GenericType<List<MergeRequest>>() { }));
+        return (response.readEntity(new GenericType<List<MergeRequest>>() {
+        }));
     }
 
     /**
@@ -769,8 +771,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/closed_by</code></pre>
      *
      * @param projectIdOrPath id, path of the project, or a Project instance holding the project ID or path
-     * @param issueIid the internal ID of a project's issue
-     * @param itemsPerPage the number of Issue instances that will be fetched per page
+     * @param issueIid        the internal ID of a project's issue
+     * @param itemsPerPage    the number of Issue instances that will be fetched per page
      * @return a Pager containing all the issues that would be closed by merging the provided merge request
      * @throws GitLabApiException if any exception occurs
      */
@@ -785,7 +787,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/closed_by</code></pre>
      *
      * @param projectIdOrPath id, path of the project, or a Project instance holding the project ID or path
-     * @param issueIid the internal ID of a project's issue
+     * @param issueIid        the internal ID of a project's issue
      * @return a List containing all the merge requests what will close the issue when merged.
      * @throws GitLabApiException if any exception occurs
      */
@@ -802,7 +804,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/links</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
+     * @param issueIid        the internal ID of a project's issue
      * @return a list of related issues of a given issue, sorted by the relationship creation datetime (ascending)
      * @throws GitLabApiException if any exception occurs
      */
@@ -819,8 +821,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/links</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
-     * @param itemsPerPage the number of issues per page
+     * @param issueIid        the internal ID of a project's issue
+     * @param itemsPerPage    the number of issues per page
      * @return a Pager of related issues of a given issue, sorted by the relationship creation datetime (ascending)
      * @throws GitLabApiException if any exception occurs
      */
@@ -838,7 +840,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/links</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
+     * @param issueIid        the internal ID of a project's issue
      * @return a Stream of related issues of a given issue, sorted by the relationship creation datetime (ascending)
      * @throws GitLabApiException if any exception occurs
      */
@@ -853,15 +855,15 @@ public class IssuesApi extends AbstractApi implements Constants {
      *
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues/:issue_iid/links</code></pre>
      *
-     * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue
+     * @param projectIdOrPath       the project in the form of an Integer(ID), String(path), or Project instance
+     * @param issueIid              the internal ID of a project's issue
      * @param targetProjectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance of the target project
-     * @param targetIssueIid the internal ID of a target project’s issue
+     * @param targetIssueIid        the internal ID of a target project’s issue
      * @return an instance of IssueLink holding the link relationship
      * @throws GitLabApiException if any exception occurs
      */
     public IssueLink createIssueLink(Object projectIdOrPath, Integer issueIid,
-            Object targetProjectIdOrPath, Integer targetIssueIid) throws GitLabApiException {
+                                     Object targetProjectIdOrPath, Integer targetIssueIid) throws GitLabApiException {
 
         GitLabApiForm formData = new GitLabApiForm()
                 .withParam("target_project_id", getProjectIdOrPath(targetProjectIdOrPath), true)
@@ -880,8 +882,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: POST /projects/:id/issues/:issue_iid/links/:issue_link_id</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the internal ID of a project's issue, required
-     * @param issueLinkId the ID of an issue relationship, required
+     * @param issueIid        the internal ID of a project's issue, required
+     * @param issueLinkId     the ID of an issue relationship, required
      * @return an instance of IssueLink holding the deleted link relationship
      * @throws GitLabApiException if any exception occurs
      */
@@ -897,7 +899,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/participants</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the IID of the issue to get the participants for
+     * @param issueIid        the IID of the issue to get the participants for
      * @return a List containing all participants for the specified issue
      * @throws GitLabApiException if any exception occurs
      */
@@ -911,16 +913,17 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/participants</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the IID of the issue to get the participants for
-     * @param page the page to get
-     * @param perPage the number of projects per page
+     * @param issueIid        the IID of the issue to get the participants for
+     * @param page            the page to get
+     * @param perPage         the number of projects per page
      * @return a List containing all participants for the specified issue
      * @throws GitLabApiException if any exception occurs
      */
     public List<Participant> getParticipants(Object projectIdOrPath, Integer issueIid, int page, int perPage) throws GitLabApiException {
         Response response = get(Response.Status.OK, getPageQueryParams(page, perPage),
-                    "projects", getProjectIdOrPath(projectIdOrPath), "issues", issueIid, "participants");
-        return (response.readEntity(new GenericType<List<Participant>>() { }));
+                "projects", getProjectIdOrPath(projectIdOrPath), "issues", issueIid, "participants");
+        return (response.readEntity(new GenericType<List<Participant>>() {
+        }));
     }
 
     /**
@@ -929,8 +932,8 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/participants</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the IID of the issue to get the participants for
-     * @param itemsPerPage the number of Participant instances that will be fetched per page
+     * @param issueIid        the IID of the issue to get the participants for
+     * @param itemsPerPage    the number of Participant instances that will be fetched per page
      * @return a Pager containing all participants for the specified issue
      * @throws GitLabApiException if any exception occurs
      */
@@ -945,7 +948,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:id/issues/:issue_iid/participants</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance
-     * @param issueIid the IID of the issue to get the participants for
+     * @param issueIid        the IID of the issue to get the participants for
      * @return a Stream containing all participants for the specified issue
      * @throws GitLabApiException if any exception occurs
      */
@@ -975,7 +978,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /groups/:groupId/issues_statistics</code></pre>
      *
      * @param groupIdOrPath the group ID, path of the group, or a Group instance holding the group ID or path, required
-     * @param filter {@link IssuesStatisticsFilter} a IssuesStatisticsFilter instance with the filter settings
+     * @param filter        {@link IssuesStatisticsFilter} a IssuesStatisticsFilter instance with the filter settings
      * @return an IssuesStatistics instance with the statistics for the matched issues
      * @throws GitLabApiException if any exception occurs
      */
@@ -991,7 +994,7 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: GET /projects/:projectId/issues_statistics</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance, required
-     * @param filter {@link IssuesStatisticsFilter} a IssuesStatisticsFilter instance with the filter settings.
+     * @param filter          {@link IssuesStatisticsFilter} a IssuesStatisticsFilter instance with the filter settings.
      * @return an IssuesStatistics instance with the statistics for the matched issues
      * @throws GitLabApiException if any exception occurs
      */
@@ -1012,15 +1015,15 @@ public class IssuesApi extends AbstractApi implements Constants {
      * <pre><code>GitLab Endpoint: POST /projects/:projectId/issues/:issue_iid/move</code></pre>
      *
      * @param projectIdOrPath the project in the form of an Integer(ID), String(path), or Project instance, required
-     * @param issueIid the IID of the issue to move
-     * @param toProjectId the ID of the project to move the issue to
+     * @param issueIid        the IID of the issue to move
+     * @param toProjectId     the ID of the project to move the issue to
      * @return an Issue instance for the moved issue
      * @throws GitLabApiException if any exception occurs
      */
     public Issue moveIssue(Object projectIdOrPath, Integer issueIid, Object toProjectId) throws GitLabApiException {
-	GitLabApiForm formData = new GitLabApiForm().withParam("to_project_id", toProjectId, true);
+        GitLabApiForm formData = new GitLabApiForm().withParam("to_project_id", toProjectId, true);
         Response response = post(Response.Status.OK, formData,
-        	"projects", this.getProjectIdOrPath(projectIdOrPath), "issues", issueIid, "move");
+                "projects", this.getProjectIdOrPath(projectIdOrPath), "issues", issueIid, "move");
         return (response.readEntity(Issue.class));
     }
 }
