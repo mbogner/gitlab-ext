@@ -4,7 +4,6 @@ gitlab:
   personalAccessToken: T2z3-ef5yxA3DmBRFHgs
 google:
   secretsFile: client.secrets.json
-  apiKey: AIzaSyCFll7Ava4T-7VHvYUnuN-hDO3dzcr8QVo
   credentialStore: gstore
   docs:
     baseDir: gitlab_documents
