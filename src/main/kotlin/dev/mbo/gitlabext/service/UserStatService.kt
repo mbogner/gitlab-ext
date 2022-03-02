@@ -1,19 +1,20 @@
 package dev.mbo.gitlabext.service
 
-import dev.mbo.gitlabext.ports.redis.mapper.UserRedisEntityMapper
-import dev.mbo.gitlabext.ports.redis.repo.UserRedisRepository
+import dev.mbo.gitlabext.ports.redis.mapper.UserStatRedisEntityMapper
+import dev.mbo.gitlabext.ports.redis.repo.UserStatRedisRepository
 import dev.mbo.gitlabext.service.exc.NotFoundException
 import dev.mbo.gitlabext.service.model.User
+import dev.mbo.gitlabext.service.model.UserStat
 import org.springframework.stereotype.Service
 import java.util.UUID
 
 @Service
-class UserService(
-    private val redisRepository: UserRedisRepository,
-    private val mapper: UserRedisEntityMapper
+class UserStatService(
+    private val redisRepository: UserStatRedisRepository,
+    private val mapper: UserStatRedisEntityMapper
 ) {
 
-    fun save(entry: User): User {
+    fun save(entry: UserStat): UserStat {
         if (null == entry.id) {
             entry.id = UUID.randomUUID()
         }
@@ -21,7 +22,7 @@ class UserService(
         return mapper.mapRedisToDomain(saved)
     }
 
-    fun read(id: UUID): User {
+    fun read(id: UUID): UserStat {
         val hash = redisRepository.findById(id) ?: throw NotFoundException(
             "no ${User::class.java.simpleName} with id $id",
             mapOf("id" to id)
@@ -29,7 +30,7 @@ class UserService(
         return mapper.mapRedisToDomain(hash)
     }
 
-    fun delete(id: UUID): User {
+    fun delete(id: UUID): UserStat {
         val hash = redisRepository.deleteById(id) ?: throw NotFoundException(
             "no ${User::class.java.simpleName} with id $id",
             mapOf("id" to id)

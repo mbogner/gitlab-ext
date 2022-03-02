@@ -38,11 +38,15 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
     implementation("org.mapstruct:mapstruct:1.4.2.Final")
     kapt("org.mapstruct:mapstruct-processor:1.4.2.Final")
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation("org.apache.commons:commons-lang3")
 
     implementation(project(":gitlab4j-api"))
 
     // test
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(module = "junit")
+    }
     // testcontainers
     // https://mvnrepository.com/artifact/org.testcontainers/testcontainers-bom
     implementation(platform("org.testcontainers:testcontainers-bom:1.16.3"))

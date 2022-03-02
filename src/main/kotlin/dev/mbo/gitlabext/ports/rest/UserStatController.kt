@@ -1,8 +1,8 @@
 package dev.mbo.gitlabext.ports.rest
 
-import dev.mbo.gitlabext.ports.rest.mapper.UserDtoMapper
-import dev.mbo.gitlabext.ports.rest.model.UserDto
-import dev.mbo.gitlabext.service.UserService
+import dev.mbo.gitlabext.ports.rest.mapper.UserStatDtoMapper
+import dev.mbo.gitlabext.ports.rest.model.UserStatDto
+import dev.mbo.gitlabext.service.UserStatService
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -16,19 +16,19 @@ import java.util.UUID
 import javax.validation.Valid
 
 @RestController
-class UserController(
-    private val service: UserService,
-    private val mapper: UserDtoMapper,
+class UserStatController(
+    private val service: UserStatService,
+    private val mapper: UserStatDtoMapper,
 ) {
 
     private val log = LoggerFactory.getLogger(javaClass)
 
     @PostMapping(
-        path = ["/users"],
+        path = ["/user-stats"],
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun create(@Valid @RequestBody dto: UserDto): ResponseEntity<UserDto> {
+    fun create(@Valid @RequestBody dto: UserStatDto): ResponseEntity<UserStatDto> {
         log.debug("create: {}", dto)
         dto.inPreMap()
         val user = mapper.mapDtoToDomain(dto)
@@ -38,10 +38,10 @@ class UserController(
     }
 
     @GetMapping(
-        path = ["/users/{id}"],
+        path = ["/user-stats/{id}"],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun read(@PathVariable id: UUID): ResponseEntity<UserDto> {
+    fun read(@PathVariable id: UUID): ResponseEntity<UserStatDto> {
         log.debug("read: {}", id)
         val result = service.read(id)
         val respDto = mapper.mapDomainToDto(result)
@@ -49,10 +49,10 @@ class UserController(
     }
 
     @DeleteMapping(
-        path = ["/users/{id}"],
+        path = ["/user-stats/{id}"],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun delete(@PathVariable id: UUID): ResponseEntity<UserDto> {
+    fun delete(@PathVariable id: UUID): ResponseEntity<UserStatDto> {
         log.debug("read: {}", id)
         val result = service.delete(id)
         val respDto = mapper.mapDomainToDto(result)
