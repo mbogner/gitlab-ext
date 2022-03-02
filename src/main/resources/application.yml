@@ -10,3 +10,4 @@ logging:
   level:
     root: INFO
     dev.mbo: DEBUG
+    org.gitlab4j.api: TRACE

@@ -6,10 +6,10 @@ import org.gitlab4j.api.systemhooks.SystemHookManager
 import org.gitlab4j.api.webhook.WebHookListener
 import org.gitlab4j.api.webhook.WebHookManager
 import org.slf4j.LoggerFactory
+import org.slf4j.event.Level
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import java.util.logging.Level
 
 @Configuration
 class GitlabClientConfig {
@@ -22,7 +22,7 @@ class GitlabClientConfig {
         @Value("\${gitlab.personalAccessToken}") gitlabPersonalAccessToken: String,
     ): GitLabApi {
         return GitLabApi(gitlabServerUrl, gitlabPersonalAccessToken)
-            .withRequestResponseLogging(Level.ALL)
+            .withRequestResponseLogging(Level.TRACE)
     }
 
     @Bean

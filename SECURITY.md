@@ -9,4 +9,4 @@
 
 ## Reporting a Vulnerability
 
-Please send an email with a description and possible reproducer to m@mbo.dev if you find a vulnerability.
+Please create an issue on github with a proper description and if possible a reproducer.
