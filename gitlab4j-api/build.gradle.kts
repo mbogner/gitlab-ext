@@ -15,9 +15,13 @@ dependencies {
     api("jakarta.servlet:jakarta.servlet-api")
     implementation("org.slf4j:slf4j-api")
 
-    // jersey
+    // jersey - not compatible with v3
+    @Suppress("GradlePackageUpdate")
     api("org.glassfish.jersey.inject:jersey-hk2:2.35")
+    @Suppress("GradlePackageUpdate")
     api("org.glassfish.jersey.core:jersey-client:2.35")
+    @Suppress("GradlePackageUpdate")
     api("org.glassfish.jersey.connectors:jersey-apache-connector:2.35")
+    @Suppress("GradlePackageUpdate")
     api("org.glassfish.jersey.media:jersey-media-multipart:2.35")
 }
